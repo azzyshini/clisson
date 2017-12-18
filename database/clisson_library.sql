@@ -22,4 +22,23 @@ CREATE TABLE IF NOT EXISTS users (
     UNIQUE INDEX (email),
     INDEX user_type_id_idx (user_type_id),
     FOREIGN KEY (user_type_id) REFERENCES user_types(id)
-) ENGINE=INNODB;
+) ENGINE=INNODB; 
+
+CREATE TABLE IF NOT EXISTS books(
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(128) NOT NULL,
+    author_name VARCHAR(256) NOT NULL,
+    number_of_copies INT NOT NULL, 
+    isbn VARCHAR(32) NOT NULL, 
+    published_date DATETIME NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    UNIQUE INDEX (isbn)
+) ENGINE=INNODB;  
+
+CREATE TABLE IF NOT EXISTS genre(
+    id INT NOT NULL AUTO_INCREMENT,
+    genre_type VARCHAR(128) NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+    PRIMARY KEY (id)
+) ENGINE=INNODB;  
