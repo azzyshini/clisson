@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS clisson_library;
+CREATE DATABASE CHARACTER SET utf8 COLLATE uft8_unicode_ci IF NOT EXISTS clisson_library;
 
 USE clisson_library;
 
