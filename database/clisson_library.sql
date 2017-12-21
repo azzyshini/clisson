@@ -48,17 +48,21 @@ CREATE TABLE IF NOT EXISTS holds(
     user_id INT NOT NULL,
     book_id INT NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id), 
+    FOREIGN KEY (book_id) REFERENCES books(id)
 ) ENGINE=INNODB;  
 
 CREATE TABLE IF NOT EXISTS checkouts(
     id INT NOT NULL AUTO-INCREMENT,
     user_id INT NOT NULL,
     book_id INT NOT NULL,
-    out_date DATETIME NOT NULL,
+    checkout_date DATETIME NOT NULL,
     due_date DATETIME NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id), 
+    FOREIGN KEY (book_id) REFERENCES books(id)
 ) ENGINE=INNODB; 
  
 CREATE TABLE IF NOT EXISTS book_genre(
@@ -66,5 +70,7 @@ CREATE TABLE IF NOT EXISTS book_genre(
     book_id INT NOT NULL,
     genre_id INT NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (genre_id) REFERENCES genre(id), 
+    FOREIGN KEY (book_id) REFERENCES books(id)
 ) ENGINE=INNODB;  
