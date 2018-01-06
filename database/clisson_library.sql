@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS books(
     author_name VARCHAR(256) NOT NULL,
     number_of_copies INT NOT NULL, 
     isbn VARCHAR(32) NOT NULL, 
+    book_cover VARBINARY NOT NULL
     published_date DATETIME NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
