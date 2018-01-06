@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS clisson_library CHARACTER SET utf8 COLLATE uft8_unicode_ci;
+CREATE DATABASE IF NOT EXISTS clisson_library CHARACTER SET utf8 COLLATE utf8mb4_unicode_ci;
 
 USE clisson_library;
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS books(
     author_name VARCHAR(256) NOT NULL,
     number_of_copies INT NOT NULL, 
     isbn VARCHAR(32) NOT NULL, 
-    book_cover VARBINARY NOT NULL,
+    book_cover MEDIUMBLOB NOT NULL,
     published_date DATETIME NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
