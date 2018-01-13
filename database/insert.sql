@@ -9,28 +9,28 @@ insert into users (email, username, first_name, last_name, password, user_type_i
 insert into users (email, username, first_name, last_name, password, user_type_id) values ('kimseokjin@clisson.com', 'worldwidehandsome', 'Seokjin', 'Kim', 'bangtan7',$
 
 /* Books Table data*/ 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('The Hate U Give','Angie Thomas',1,'978-0-0624-9853-3',  ,'2017-02-28'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Bones','Cassandra Clare',2,'978-1-4169-5507-8',  ,'2007-03-27'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Ashes','Cassandra Clare',2,'978-1-4814-5597-8',  ,'2008-03-28'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Glass','Cassandra Clare',2,'978-1-4169-1430-3',  ,'2009-03-24'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Fallen Angels','Cassandra Clare',2,'978-1-4424-0354-3',  ,'2011-04-05'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Lost Souls','Cassandra Clare',2,'978-1-4424-1686-4',  ,'2012-05-08'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Heavenly Fire','Cassandra Clare',2,'978-1-4814-2630-5 ',  ,'2014-05-27'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Throne of Glass','Sarah J. Maas',2,'978-1-5999-0695-9',  ,'2011-08-02'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Crown of Midnight','Sarah J. Maas',2,'978-1-6196-3062-8',  ,'2013-08-27'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Heir of Fire','Sarah J. Maas',2,'978-1-6196-3065-9',  ,'2014-09-02'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Queen of Shadows','Sarah J. Maas',2,'978-1-6196-3604-0',  ,'2015-09-01'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Empire of Storms','Sarah J. Maas',2,'978-1-6196-3607-1',  ,'2016-09-06'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Tower of Dawn','Sarah J.Maas',2,'978-1-6811-9577-3 ',  ,'2017-07-06'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Cinder','Marissa Meyer',2,'978-0-3126-4189-4',  ,'2012-01-03'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Scarlet','Marissa Meyer',2,'978-0-3126-4296-9',  ,'2013-05-05'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Cress','Marissa Meyer',2,'978-0-3126-4297-6',  ,'2014-02-04'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Winter','Marissa Meyer',2,'978-0-3126-4298-3',  ,'2015-11-15'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('The Perks of Being a Wallflower','Stephen Chbosky',1,'978-0-6710-2734-6',  ,''); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Thirteen Reasons Why','Jay Asher',1,'978-1-5951-4171-2',  ,'2007-10-18'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('The Devil in the White City','Erik Larson',1,'978-0-7393-0340-5',  ,'2003-02-11'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Yes Please','Amy Poehler',1,'978-0-0622-6834-1',  ,'2014-10-28'); 
-insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Unbroken','Laura Hillenbrand',1,'978-1-4000-6416-8',  ,'2010-11-16');
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('The Hate U Give','Angie Thomas',1,'978-0-0624-9853-3', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2017-02-28'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Bones','Cassandra Clare',2,'978-1-4169-5507-8', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2007-03-27'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Ashes','Cassandra Clare',2,'978-1-4814-5597-8',  LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png'),'2008-03-28'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Glass','Cassandra Clare',2,'978-1-4169-1430-3', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2009-03-24'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Fallen Angels','Cassandra Clare',2,'978-1-4424-0354-3', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2011-04-05'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Lost Souls','Cassandra Clare',2,'978-1-4424-1686-4', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2012-05-08'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('City of Heavenly Fire','Cassandra Clare',2,'978-1-4814-2630-5 ', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2014-05-27'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Throne of Glass','Sarah J. Maas',2,'978-1-5999-0695-9', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2011-08-02'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Crown of Midnight','Sarah J. Maas',2,'978-1-6196-3062-8',  LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png'),'2013-08-27'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Heir of Fire','Sarah J. Maas',2,'978-1-6196-3065-9', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2014-09-02'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Queen of Shadows','Sarah J. Maas',2,'978-1-6196-3604-0', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2015-09-01'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Empire of Storms','Sarah J. Maas',2,'978-1-6196-3607-1', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2016-09-06'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Tower of Dawn','Sarah J.Maas',2,'978-1-6811-9577-3 ', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2017-07-06'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Cinder','Marissa Meyer',2,'978-0-3126-4189-4', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2012-01-03'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Scarlet','Marissa Meyer',2,'978-0-3126-4296-9',LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png')  ,'2013-05-05'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Cress','Marissa Meyer',2,'978-0-3126-4297-6',LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png')  ,'2014-02-04'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Winter','Marissa Meyer',2,'978-0-3126-4298-3', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2015-11-15'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('The Perks of Being a Wallflower','Stephen Chbosky',1,'978-0-6710-2734-6', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'1999-02-01'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Thirteen Reasons Why','Jay Asher',1,'978-1-5951-4171-2', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2007-10-18'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('The Devil in the White City','Erik Larson',1,'978-0-7393-0340-5', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2003-02-11'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Yes Please','Amy Poehler',1,'978-0-0622-6834-1', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2014-10-28'); 
+insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('Unbroken','Laura Hillenbrand',1,'978-1-4000-6416-8', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2010-11-16');
 
 /* Genre Tables data*/ 
 insert into genre (genre_types) values ('Non-Fiction');
