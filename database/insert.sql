@@ -6,7 +6,7 @@ insert into user_types (user_type) values ('teacher');
 insert into users (email, username, first_name, last_name, password, user_type_id) values ('parkjimin@clisson.com', 'gotjams', 'Jimin', 'Park', 'bangtan7', 1);
 insert into users (email, username, first_name, last_name, password, user_type_id) values ('jeonjungkook@clisson.com', 'musclepig', 'Jungkook', 'Jeon', 'bangtan7', 1);
 insert into users (email, username, first_name, last_name, password, user_type_id) values ('kimnamjoon@clisson.com', 'pinkmon', 'Namjoon', 'Kim', 'bangtan7', 2);
-insert into users (email, username, first_name, last_name, password, user_type_id) values ('kimseokjin@clisson.com', 'worldwidehandsome', 'Seokjin', 'Kim', 'bangtan7',$
+insert into users (email, username, first_name, last_name, password, user_type_id) values ('kimseokjin@clisson.com', 'worldwidehandsome', 'Seokjin', 'Kim', 'bangtan7', 2); 
 
 /* Books Table data*/ 
 insert into books (title, author_name, number_of_copies, isbn, book_cover, published_date) values ('The Hate U Give','Angie Thomas',1,'978-0-0624-9853-3', LOAD_FILE('/home/azrael/Projects/clisson/database/images/placeholder.png') ,'2017-02-28'); 
