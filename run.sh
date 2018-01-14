@@ -9,4 +9,4 @@ BASE_PATH="$(dirname "${SCRIPT_PATH}")"
 export PYTHONPATH="${SCRIPT_PATH}"
 export CLISSON_ENV=Dev
 
-python "${SCRIPT_PATH}/run.py" --app clisson --port 5000 "$@@"
+python "${SCRIPT_PATH}/run.py" --app clisson --port 5000 "$@"
