@@ -10,7 +10,7 @@ def books():
     rv = cur.fetchall()
     boooks = []
     for row in rv:
-        boooks.append({'id' row['id'], 'title': row['title'], 'author_name': row['author_name']})
+        boooks.append({'id' : row['id'], 'title': row['title'], 'author_name': row['author_name']})
     return jsonify(boooks)
 
 @mod_books.route('/books/<int:book_id>.json', methods=['GET'])
