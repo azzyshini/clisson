@@ -6,7 +6,7 @@ mod_users = Blueprint('users', __name__, url_prefix='/api/v1.0')
 @mod_users.route('/users.json', methods=['GET'])
 def users(): 
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT id, email, first_name, last_name FROM users''')
+    cur.execute('''SELECT id, email, first_name, last_name FROM users ORDER BY id''')
     rv = cur.fetchall()
     people = []
     for row in rv:
