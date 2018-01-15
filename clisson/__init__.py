@@ -11,4 +11,5 @@ app.config.from_object('clisson.config.' + clisson_env)
 from clisson.controllers import *
 
 # Register blueprints
-app.register_blueprint(mod_books) 
+app.register_blueprint(mod_books)
+app.register_blueprint(mod_users)
