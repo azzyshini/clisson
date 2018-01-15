@@ -19,5 +19,6 @@ def book(book_id):
     cur.execute('''SELECT id, title, author_name FROM books where id = %s''', (book_id,))
     row = cur.fetchone()
     if not row:
-        return "Book with id {} not found".format(book_id), 404
+        message = "Book with id {} not found".format(book_id)
+        return jsonify({'message': message, 'status': 404}), 404
     return jsonify({'id' : row[0], 'title': row[1], 'author_name': row[2]})
