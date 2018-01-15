@@ -8,7 +8,7 @@ def books():
     cur = mysql.connection.cursor()
     cur.execute('''SELECT * FROM books''')
     rv = cur.fetchall()
-    return jsonify(rv)
+    return str(rv)
 
 @mod_books.route('/books/<int:book_id>.json', methods=['GET'])
 def book(book_id):
