@@ -15,6 +15,7 @@ def books():
 
 @mod_books.route('/books/<int:book_id>.json', methods=['GET'])
 def book(book_id):
+    cur = mysql.connection.cursor
     cur.execute('''SELECT id, title, author_name FROM books where id = book_id''')
     rone = cur.fetchone()
     return jsonify(rone)
