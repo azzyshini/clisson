@@ -3,7 +3,7 @@ from clisson import app, mysql
 
 mod_users = Blueprint('users', __name__, url_prefix='/api/v1.0')
 
-@mod_users.route('/users.json', methods=['GET'])
+@mod_users.route('/user/<string : username>.json', methods=['GET'])
 def users(): 
     cur = mysql.connection.cursor()
     cur.execute('''SELECT id, email, first_name, last_name FROM users ORDER BY id DESC''')
