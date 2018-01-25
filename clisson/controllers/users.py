@@ -4,11 +4,10 @@ from clisson import app, mysql
 mod_users = Blueprint('users', __name__, url_prefix='/api/v1.0')
 
 @mod_users.route('/user/<string : username>.json', methods=['GET'])
-def users(): 
+def users(username): 
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT id, email, first_name, last_name FROM users ORDER BY id DESC''')
-    rv = cur.fetchall()
+    cur.execute('''SELECT id, email, first_name, last_name FROM users Where username = %s''', (username,))
+    rv = cur.fetchone()
     people = []
-    for row in rv:
-        people.append({'id' : row[0], 'email': row[1], 'first_name': row[2], 'last_name' : row[3]})
+    people.append({'id' : row[0], 'email': row[1], 'first_name': row[2], 'last_name' : row[3]})
     return jsonify(people)

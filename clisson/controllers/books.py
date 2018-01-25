@@ -16,9 +16,9 @@ def books():
 @mod_books.route('/books/<int:book_id>.json', methods=['GET'])
 def book(book_id):
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT id, title, author_name FROM books where id = %s''', (book_id,))
+    cur.execute('''SELECT title, author_name, number_of_copies-sum(book_id) FROM books  JOIN checkouts on books.id = checkouts.book_id  where books.id = %s''', (book_id,))
     row = cur.fetchone()
     if not row:
         message = "Book with id {} not found".format(book_id)
         return jsonify({'message': message, 'status': 404}), 404
-    return jsonify({'id' : row[0], 'title': row[1], 'author_name': row[2]})
+    return jsonify({'title': row[0], 'author_name': row[1], 'availability': row[2]})
