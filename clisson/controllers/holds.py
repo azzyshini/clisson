@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from clisson import app, mysql
 
-mod_holds = Blueprint('users', __name__, url_prefix='/api/v1.0')
+mod_holds = Blueprint('holds', __name__, url_prefix='/api/v1.0')
 
 @mod_holds.route('/holds/<int:id>.json', methods=['GET'])
 def holds(id): 
