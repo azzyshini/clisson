@@ -13,8 +13,6 @@ from clisson.controllers import *
 # Register blueprints
 app.register_blueprint(mod_books)
 app.register_blueprint(mod_users)
-app.register_blueprint(mod_user_types)
-app.register_blueprint(mod_genre)
-app.register_blueprint(mod_book_genre)
 app.register_blueprint(mod_checkouts)
 app.register_blueprint(mod_holds)
+app.register_blueprint(auth)
