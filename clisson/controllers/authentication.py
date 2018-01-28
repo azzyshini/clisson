@@ -14,8 +14,11 @@ def auth():
             password = creds.get("password")
             cur = mysql.connection.cursor()
             cur.execute('''SELECT id, email, first_name, last_name FROM users Where username = %s AND password = %s''', (username, password,))
-            rv = cur.fetchone()
-            return jsonify({'id': row[0], 'email': row[1], 'first_name': row[2], 'last_name': row[3], 'authenticated': True})
+            row = cur.fetchone()
+            if row: 
+                return jsonify({'id': row[0], 'email': row[1], 'first_name': row[2], 'last_name': row[3], 'authenticated': True})
+            else:
+                error = 'Invalid username or password. Please try again.'
         else:
             error = 'Invalid username or password. Please try again.'
     return jsonify({'message': error, 'status': 401}), 401
