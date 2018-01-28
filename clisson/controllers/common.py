@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import request, Response
+from flask import request, jsonify
 from clisson import mysql
 
 
