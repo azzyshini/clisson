@@ -13,6 +13,6 @@ def user_by_name(username):
 @mod_users.route('/user/<int:user_id>.json', methods=['GET'])
 def user_by_id(user_id): 
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT id, email, first_name, last_name FROM users Where id = %d''', (user_id,))
+    cur.execute('''SELECT id, email, first_name, last_name FROM users Where id = %d''', (int(user_id),))
     rv = cur.fetchone()
     return jsonify({'id': row[0], 'email': row[1], 'first_name': row[2], 'last_name': row[3]})
