@@ -28,7 +28,6 @@ def book(book_id):
     return jsonify({'title': row[0], 'author_name': row[1], 'availability': row[2]})
 
 @mod_books.route('/books/cover/<int:book_id>', methods=['GET'])
-@requires_auth
 def book_cover(book_id):
     cur = mysql.connection.cursor()
     cur.execute('''SELECT book_cover FROM books WHERE id = %s''', (book_id,))
