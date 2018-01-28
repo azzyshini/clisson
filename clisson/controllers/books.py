@@ -1,12 +1,10 @@
 import io
 from flask import Blueprint, jsonify, request, send_file
 from clisson import app, mysql
-from clisson.controllers.common import requires_auth
 
 mod_books = Blueprint('books', __name__, url_prefix='/api/v1.0')
 
 @mod_books.route('/books.json', methods=['GET'])
-@requires_auth
 def books():
     cur = mysql.connection.cursor()
     cur.execute('''SELECT id, title, author_name FROM books''')
@@ -17,7 +15,6 @@ def books():
     return jsonify(boooks)
 
 @mod_books.route('/books/<int:book_id>.json', methods=['GET'])
-@requires_auth
 def book(book_id):
     cur = mysql.connection.cursor()
     cur.execute('''SELECT title, author_name, number_of_copies-sum(book_id) FROM books JOIN checkouts on books.id = checkouts.book_id  where books.id = %s''', (book_id,))
@@ -30,10 +27,12 @@ def book(book_id):
 @mod_books.route('/books/cover/<int:book_id>', methods=['GET'])
 def book_cover(book_id):
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT book_cover FROM books WHERE id = %s''', (book_id,))
+    cur.execute('''SELECT book_cover, book_cover_mimetype FROM books WHERE id = %s''', (book_id,))
     row = cur.fetchone()
-    if not row:
-        message = "Book cover with id {} not found".format(book_id)
-        return message, 404
-    cover = row[0]
-    return send_file(io.BytesIO(cover), attachment_filename='book_cover_{}.png'.format(book_id), mimetype='image/png')
+    if row:
+        cover = row[0]
+        mimetype = row[1]
+        if cover:
+            return send_file(io.BytesIO(cover), attachment_filename='book_cover_{}'.format(book_id), mimetype=mimetype)
+    message = "Book cover with id {} not found".format(book_id)
+    return message, 404
