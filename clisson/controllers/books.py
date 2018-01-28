@@ -36,4 +36,4 @@ def book_cover(book_id):
         message = "Book cover with id {} not found".format(book_id)
         return message, 404
     cover = row[0]
-    return send_file(io.BytesIO(cover.read()), attachment_filename='book_cover_{}.png'.format(book_id), mimetype='image/png')
+    return send_file(io.BytesIO(cover), attachment_filename='book_cover_{}.png'.format(book_id), mimetype='image/png')
