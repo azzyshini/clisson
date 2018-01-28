@@ -1,9 +1,11 @@
 from flask import Blueprint, jsonify, request
 from clisson import app, mysql
+from clisson.controllers.common import requires_auth
 
 mod_books = Blueprint('books', __name__, url_prefix='/api/v1.0')
 
 @mod_books.route('/books.json', methods=['GET'])
+@requires_auth
 def books():
     cur = mysql.connection.cursor()
     cur.execute('''SELECT id, title, author_name FROM books''')
@@ -14,6 +16,7 @@ def books():
     return jsonify(boooks)
 
 @mod_books.route('/books/<int:book_id>.json', methods=['GET'])
+@requires_auth
 def book(book_id):
     cur = mysql.connection.cursor()
     cur.execute('''SELECT title, author_name, number_of_copies-sum(book_id) FROM books JOIN checkouts on books.id = checkouts.book_id  where books.id = %s''', (book_id,))
