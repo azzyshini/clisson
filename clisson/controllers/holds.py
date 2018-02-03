@@ -15,7 +15,6 @@ def holds(id):
     return jsonify(holds)
 
 @mod_holds.route('/hold.json', methods=['POST'])
-@requires_auth
 def hold(): 
     info = request.get_json(force=True, silent=True)
     if info:

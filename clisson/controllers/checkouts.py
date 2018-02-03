@@ -15,7 +15,6 @@ def checkouts(id):
     return jsonify(checkouts)
 
 @mod_checkouts.route('/checkout.json', methods=['POST'])
-@requires_auth
 def checkout(): 
     info = request.get_json(force=True, silent=True)
     error = none
