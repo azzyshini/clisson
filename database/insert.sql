@@ -21,7 +21,7 @@ insert into books (title, author_name, number_of_copies, isbn, published_date) v
 insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Pride and Prejudice','Jane Austen',2,'0393264882','1813-01-28'); 
 insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Sense and Sensibility','Jane Austen',2,'039397775X','1811'); 
 insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Philosophiæ Naturalis Principia Mathematica','Isaac Newton',1,'1307962403','1728'); 
-insert into books (title, author_name, number_of_copies, isbn, published_date) values ('The Social Contract','Jean-Jacques Rousseau',1,'0140442014','1762');	
+insert into books (title, author_name, number_of_copies, isbn, published_date) values ('The Social Contract','Jean-Jacques Rousseau',1,'0140442014','1762');    
 
 /* Genre Tables data*/ 
 insert into genre (genre_type) values ('Non-Fiction'); 
