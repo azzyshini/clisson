@@ -15,7 +15,7 @@ def checkouts(id):
     return jsonify(checkouts)
 
 @mod_checkouts.route('/checkout.json', methods=['POST'])
-def checkout(): 
+def checkout():
     info = request.get_json(force=True, silent=True)
     if info:
         user_id = info.get("user_id")

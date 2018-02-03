@@ -15,7 +15,7 @@ def holds(id):
     return jsonify(holds)
 
 @mod_holds.route('/hold.json', methods=['POST'])
-def hold(): 
+def hold():
     info = request.get_json(force=True, silent=True)
     if info:
         user_id = info.get("user_id")
