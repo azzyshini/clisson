@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from clisson import app, mysql
+from clisson.controllers.common import requires_auth
 
 mod_holds = Blueprint('holds', __name__, url_prefix='/api/v1.0')
 
