@@ -7,7 +7,7 @@ mod_holds = Blueprint('holds', __name__, url_prefix='/api/v1.0')
 @mod_holds.route('/holds/<int:id>.json', methods=['GET'])
 def holds(id): 
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT title, author FROM holds JOIN users on users.ID = holds.user_id JOIN books on books.ID = holds.book_id Where holds.user_id = %d''', (id,))
+    cur.execute('''SELECT title, author FROM holds JOIN users on users.ID = holds.user_id JOIN books ON books.ID = holds.book_id WHERE holds.user_id = %d''', (id,))
     rv = cur.fetchall()
     holds = []
     for row in rv:
@@ -24,4 +24,4 @@ def hold():
         cur.execute('''INSERT INTO checkouts (user_id, book_id) VALUES (%s, %s)''', (user_id, book_id,))
         cur.execute('''SELECT holds.id, first_name, last_name, title, author FROM holds JOIN users ON users.id = holds.user_id JOIN books ON books.id = holds.book_id WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
         rv = cur.fetchone()
-        return jsonify({'id': row[0],'first_name': row[1], 'last_name': row[2], 'title': row[3], 'author': row[4], 'status': 200}),200
+        return jsonify({'id': row[0], 'first_name': row[1], 'last_name': row[2], 'title': row[3], 'author': row[4], 'status': 200}), 200
