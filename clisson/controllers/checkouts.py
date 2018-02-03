@@ -21,7 +21,7 @@ def checkout():
         user_id = info.get("user_id")
         book_id = info.get("book_id")
         cur = mysql.connection.cursor()
-        cur.execute('''INSERT INTO checkouts (user_id, book_id, due_date) VALUES (%s, %s, NOW()+INTERVAL 2 week)''', (user_id, book_id,))
+        cur.execute('''INSERT INTO checkouts (user_id, book_id, checkout_date, due_date) VALUES (%s, %s, NOW(), NOW()+INTERVAL 2 week)''', (user_id, book_id,))
         cur.execute('''SELECT id, user_id, book_id FROM chekcouts WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
         row = cur.fetchone()
         return jsonify({'id': row[0], 'user_id': row[1], 'book_id': row[2], 'status': 200}), 200
