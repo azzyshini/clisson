@@ -23,5 +23,5 @@ def hold():
         cur = mysql.connection.cursor()
         cur.execute('''INSERT INTO checkouts (user_id, book_id) VALUES (%s, %s)''', (user_id, book_id,))
         cur.execute('''SELECT holds.id, first_name, last_name, title, author FROM holds JOIN users ON users.id = holds.user_id JOIN books ON books.id = holds.book_id WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
-        rv = cur.fetchone()
+        rv = cur.fetchall()
         return jsonify({'id': row[0], 'first_name': row[1], 'last_name': row[2], 'title': row[3], 'author': row[4], 'status': 200}), 200
