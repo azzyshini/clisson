@@ -22,24 +22,27 @@ def checkout():
     if info:
         user_id = info.get("user_id")
         book_id = info.get("book_id")
-
-        cur = mysql.connection.cursor() 
-        cur.execute('''SELECT number_of_copies-COALESCE(SUM(book_id), 0) FROM books INNER 
-                       JOIN checkouts ON book.id = checkouts.book_id WHERE id = %s''', (book_id,))
-        availability = cur.fetchone()
-        if availability[0] < 0:
-            return jsonify({'message': 'Cannot checkout this book at this time.', 'status': 400}), 400
-
         try:
-            cur.execute('''INSERT INTO checkouts (user_id, book_id, checkout_date, due_date) 
-                           VALUES (%s, %s, NOW(), NOW()+INTERVAL 2 week)''', (user_id, book_id,))
-            mysql.connection.commit()
-        except Exception as e:
-            mysql.connection.rollback()
-            return jsonify({'message': 'Cannot checkout this book at this time, '
-                                       'unexpected database error.', 'status': 400}), 400
+            cur = mysql.connection.cursor() 
+            cur.execute('''SELECT number_of_copies-COALESCE(SUM(book_id), 0) FROM books INNER 
+                           JOIN checkouts ON book.id = checkouts.book_id WHERE id = %s''', (book_id,))
+            availability = cur.fetchone()
+            if availability[0] < 0:
+                return jsonify({'message': 'Cannot checkout this book at this time.', 'status': 400}), 400
 
-        cur.execute('''SELECT id, user_id, book_id FROM checkouts 
-                       WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
-        row = cur.fetchone()
-        return jsonify({'id': row[0], 'user_id': row[1], 'book_id': row[2]})
+            try:
+                cur.execute('''INSERT INTO checkouts (user_id, book_id, checkout_date, due_date) 
+                               VALUES (%s, %s, NOW(), NOW()+INTERVAL 2 week)''', (user_id, book_id,))
+                mysql.connection.commit()
+            except Exception as e:
+                mysql.connection.rollback()
+                return jsonify({'message': 'Cannot checkout this book at this time, '
+                                           'unexpected database error.', 'status': 400}), 400
+
+            cur.execute('''SELECT id, user_id, book_id FROM checkouts 
+                           WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
+            row = cur.fetchone()
+            return jsonify({'id': row[0], 'user_id': row[1], 'book_id': row[2]})
+        except Exception as e:
+            return jsonify({'message': 'Unexpected error occured while '
+                            'checking out book id {} for user id {}.'.format(book_id, user_id), 'status': 400}), 400
