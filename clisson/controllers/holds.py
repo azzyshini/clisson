@@ -27,4 +27,4 @@ def hold():
                        JOIN books ON books.id = holds.book_id 
                        WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
         row = cur.fetchone()
-        return jsonify({'id': row[0], 'first_name': row[1], 'last_name': row[2], 'title': row[3], 'author': row[4], 'status': 200}), 200
+        return jsonify({'id': row[0], 'first_name': row[1], 'last_name': row[2], 'title': row[3], 'author': row[4]})
