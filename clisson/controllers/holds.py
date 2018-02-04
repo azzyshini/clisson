@@ -25,7 +25,7 @@ def hold():
         number = cur.fetchone()
         if number[0] >= 50:
             return jsonify({'message': 'You have reached the limit to the number of holds you can have at one time.', 'status': 400}), 400
-        cur.execute('''SELECT COALESCE(SUM(book_id), 0) FROM holds WHERE user_id = %s''', (user_id,))
+        cur.execute('''SELECT COALESCE(SUM(book_id), 0) FROM holds WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
         number = cur.fetchone()
         if number[0] >= 1:
             return jsonify({'message': 'You already have this book on hold.', 'status': 400}), 400
