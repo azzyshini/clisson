@@ -10,18 +10,18 @@ insert into users (email, username, first_name, last_name, password, user_type_i
 
 /* Books Table data*/ 
 insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Moby Dick','Herman Melville',1,'0679602909','1851-11-14'); 
-insert into books (title, author_name, number_of_copies, isbn, published_date) values ('A Midsummer Nights Dream','William Shakespeare',2,'0553213008','1600'); 
+insert into books (title, author_name, number_of_copies, isbn, published_date) values ('A Midsummer Nights Dream','William Shakespeare',2,'0553213008','1600-01-01'); 
 insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Gullivers travels','Jonathan Swift',2,'0486292738','1726-10-28'); 
 insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Alices Adventure in Wonderland','Lewis Carroll',2,'0486275434','1865-11-26'); 
-insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Divine Comedy','Dante Alighieri',2,'0142437220','1555'); 
-insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Don Quixote','Miguel de Cervantes',2,'039397281X','1620'); 
+insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Divine Comedy','Dante Alighieri',2,'0142437220','1555-01-01'); 
+insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Don Quixote','Miguel de Cervantes',2,'039397281X','1620-01-01'); 
 insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Adventures of Huckleberry Finn','Mark Twain',2,'0486280616','1884-12-10'); 
-insert into books (title, author_name, number_of_copies, isbn, published_date) values ('The Three Musketeers','Alexandre Dumas',2,'1849907498','1844-07'); 
+insert into books (title, author_name, number_of_copies, isbn, published_date) values ('The Three Musketeers','Alexandre Dumas',2,'1849907498','1844-07-01'); 
 insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Frankenstein','Mary Shelley',2,'0486282112','1818-01-01'); 
 insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Pride and Prejudice','Jane Austen',2,'0393264882','1813-01-28'); 
-insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Sense and Sensibility','Jane Austen',2,'039397775X','1811'); 
-insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Philosophiæ Naturalis Principia Mathematica','Isaac Newton',1,'1307962403','1728'); 
-insert into books (title, author_name, number_of_copies, isbn, published_date) values ('The Social Contract','Jean-Jacques Rousseau',1,'0140442014','1762');    
+insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Sense and Sensibility','Jane Austen',2,'039397775X','1811-01-01'); 
+insert into books (title, author_name, number_of_copies, isbn, published_date) values ('Philosophiæ Naturalis Principia Mathematica','Isaac Newton',1,'1307962403','1728-01-01'); 
+insert into books (title, author_name, number_of_copies, isbn, published_date) values ('The Social Contract','Jean-Jacques Rousseau',1,'0140442014','1762-01-01');    
 
 /* Genre Tables data*/ 
 insert into genre (genre_type) values ('Non-Fiction'); 
