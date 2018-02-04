@@ -7,7 +7,9 @@ mod_checkouts = Blueprint('checkouts', __name__, url_prefix='/api/v1.0')
 @mod_checkouts.route('/checkouts/<int:id>.json', methods=['GET'])
 def checkouts(id): 
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT title, author, due_date FROM checkouts JOIN users on users.ID = checkouts.user_id JOIN books on books.ID = checkouts.book_id Where checkouts.user_id = %d''', (id,))
+    cur.execute('''SELECT title, author, due_date FROM checkouts 
+                   JOIN users on users.ID = checkouts.user_id 
+                   JOIN books on books.ID = checkouts.book_id Where checkouts.user_id = %d''', (id,))
     rv = cur.fetchall()
     checkouts = []
     for row in rv:
@@ -20,13 +22,24 @@ def checkout():
     if info:
         user_id = info.get("user_id")
         book_id = info.get("book_id")
+
         cur = mysql.connection.cursor() 
         cur.execute('''SELECT number_of_copies-COALESCE(SUM(book_id), 0) FROM books INNER 
                        JOIN checkouts ON book.id = checkouts.book_id WHERE id = %s''', (book_id,))
         availability = cur.fetchone()
         if availability[0] < 0:
             return jsonify({'message': 'Cannot checkout this book at this time.', 'status': 400}), 400
-        cur.execute('''INSERT INTO checkouts (user_id, book_id, checkout_date, due_date) VALUES (%s, %s, NOW(), NOW()+INTERVAL 2 week)''', (user_id, book_id,))
-        cur.execute('''SELECT id, user_id, book_id FROM checkouts WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
+
+        try:
+            cur.execute('''INSERT INTO checkouts (user_id, book_id, checkout_date, due_date) 
+                           VALUES (%s, %s, NOW(), NOW()+INTERVAL 2 week)''', (user_id, book_id,))
+            mysql.connection.commit()
+        except Exception as e:
+            mysql.connection.rollback()
+            return jsonify({'message': 'Cannot checkout this book at this time, '
+                                       'unexpected database error.', 'status': 400}), 400
+
+        cur.execute('''SELECT id, user_id, book_id FROM checkouts 
+                       WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
         row = cur.fetchone()
         return jsonify({'id': row[0], 'user_id': row[1], 'book_id': row[2]})

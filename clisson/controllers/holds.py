@@ -7,7 +7,9 @@ mod_holds = Blueprint('holds', __name__, url_prefix='/api/v1.0')
 @mod_holds.route('/holds/<int:id>.json', methods=['GET'])
 def holds(id): 
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT title, author FROM holds JOIN users on users.ID = holds.user_id JOIN books ON books.ID = holds.book_id WHERE holds.user_id = %d''', (id,))
+    cur.execute('''SELECT title, author FROM holds 
+                   JOIN users on users.ID = holds.user_id 
+                   JOIN books ON books.ID = holds.book_id WHERE holds.user_id = %d''', (id,))
     rv = cur.fetchall()
     holds = []
     for row in rv:
@@ -36,6 +38,7 @@ def hold():
             mysql.connection.commit()
         except Exception as e:
             mysql.connection.rollback()
+            return jsonify({'message': 'Unable to place a hold on this book, unepected database error.', 'status': 400}), 400
         cur.execute('''SELECT holds.id, first_name, last_name, title, author_name FROM holds 
                        JOIN users ON users.id = holds.user_id 
                        JOIN books ON books.id = holds.book_id 
