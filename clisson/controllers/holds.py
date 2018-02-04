@@ -31,7 +31,11 @@ def hold():
         print(number, number[0])
         if number[0] >= 1:
             return jsonify({'message': 'You already have this book on hold.', 'status': 400}), 400
-        cur.execute('''INSERT INTO holds (user_id, book_id) VALUES (%s, %s)''', (user_id, book_id,))
+        try:
+            cur.execute('''INSERT INTO holds (user_id, book_id) VALUES (%s, %s)''', (user_id, book_id,))
+            mysql.connection.commit()
+        except Exception as e:
+            mysql.connection.rollback()
         cur.execute('''SELECT holds.id, first_name, last_name, title, author_name FROM holds 
                        JOIN users ON users.id = holds.user_id 
                        JOIN books ON books.id = holds.book_id 
