@@ -36,12 +36,13 @@ def hold():
         try:
             cur.execute('''INSERT INTO holds (user_id, book_id) VALUES (%s, %s)''', (user_id, book_id,))
             mysql.connection.commit()
+            holds_id = cur.lastrowid
         except Exception as e:
             mysql.connection.rollback()
             return jsonify({'message': 'Unable to place a hold on this book, unepected database error.', 'status': 400}), 400
         cur.execute('''SELECT holds.id, first_name, last_name, title, author_name FROM holds 
                        JOIN users ON users.id = holds.user_id 
                        JOIN books ON books.id = holds.book_id 
-                       WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
+                       WHERE holds.id = %s''', (holds_id,))
         row = cur.fetchone()
         return jsonify({'id': row[0], 'first_name': row[1], 'last_name': row[2], 'title': row[3], 'author': row[4]})

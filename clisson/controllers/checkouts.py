@@ -54,7 +54,7 @@ def checkout():
 def checkin():
     info = request.get_json(force=True, silent=True)
     if info:
-        checkout_id = info.get("id")
+        checkout_id = info.get("checkout_id")
         try:
             cur = mysql.connection.cursor()
 
