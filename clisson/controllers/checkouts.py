@@ -48,3 +48,21 @@ def checkout():
                             'checking out book id {} for user id {}.'.format(book_id, user_id), 'status': 400}), 400
     else:
         return jsonify({'message': 'Invalid json format.', 'status': 400}), 400
+
+@mod_checkouts.route('/checkin.json', methods=['POST'])
+def checkin():
+    info = request.get_json(force=True, silent=True)
+    if info:
+        checkout_id = info.get("id")
+        try:
+            cur = mysql.connection.cursor()
+            
+            cur.execute('''DELETE FROM checkouts WHERE id = %s''', (checkout_id,))
+            mysql.connection.commit()
+        except Exception as e:
+            mysql.connection.rollback()
+            return jsonify({'message': 'Cannot checkin this book at this time, '
+                                       'unexpected database error.', 'status': 400}), 400
+        return jsonify({})
+    else:
+        return jsonify({'message': 'Invalid json format.', 'status': 400}), 400
