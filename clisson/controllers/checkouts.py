@@ -33,6 +33,7 @@ def checkout():
             try:
                 cur.execute('''INSERT INTO checkouts (user_id, book_id, checkout_date, due_date) 
                                VALUES (%s, %s, NOW(), NOW()+INTERVAL 2 week)''', (user_id, book_id,))
+                checkout_id = cur.lastrowid
                 mysql.connection.commit()
             except Exception as e:
                 mysql.connection.rollback()
@@ -40,13 +41,12 @@ def checkout():
                                            'unexpected database error.', 'status': 400}), 400
 
             cur.execute('''SELECT id, user_id, book_id FROM checkouts 
-                           WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
+                           WHERE id = %s''', (checkout_id,))
             row = cur.fetchone()
             return jsonify({'id': row[0], 'user_id': row[1], 'book_id': row[2]})
         except Exception as e:
-            raise e
-            #return jsonify({'message': 'Unexpected error occured while '
-            #                'checking out book id {} for user id {}.'.format(book_id, user_id), 'status': 400}), 400
+            return jsonify({'message': 'Unexpected error occured while '
+                            'checking out book id {} for user id {}.'.format(book_id, user_id), 'status': 400}), 400
     else:
         return jsonify({'message': 'Invalid json format.', 'status': 400}), 400
 
