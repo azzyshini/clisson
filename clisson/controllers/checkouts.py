@@ -25,7 +25,7 @@ def checkout():
         try:
             cur = mysql.connection.cursor() 
             cur.execute('''SELECT number_of_copies-COALESCE(SUM(book_id), 0) FROM books INNER 
-                           JOIN checkouts ON book.id = checkouts.book_id WHERE id = %s''', (book_id,))
+                           JOIN checkouts ON books.id = checkouts.book_id WHERE id = %s''', (book_id,))
             availability = cur.fetchone()
             if availability[0] < 0:
                 return jsonify({'message': 'Cannot checkout this book at this time.', 'status': 400}), 400
