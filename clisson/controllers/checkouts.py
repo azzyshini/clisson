@@ -46,3 +46,5 @@ def checkout():
         except Exception as e:
             return jsonify({'message': 'Unexpected error occured while '
                             'checking out book id {} for user id {}.'.format(book_id, user_id), 'status': 400}), 400
+    else:
+        return jsonify({'message': 'Invalid json format.', 'status': 400}), 400
