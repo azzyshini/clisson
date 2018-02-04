@@ -22,27 +22,33 @@ def hold():
     if info:
         user_id = info.get("user_id")
         book_id = info.get("book_id")
-        cur = mysql.connection.cursor()
-        cur.execute('''SELECT COALESCE(SUM(user_id), 0) FROM holds WHERE user_id = %s''', (user_id,))
-        number = cur.fetchone()
-        print(number, number[0])
-        if number[0] >= 50:
-            return jsonify({'message': 'You have reached the limit to the number of holds you can have at one time.', 'status': 400}), 400
-        cur.execute('''SELECT COALESCE(SUM(book_id), 0) FROM holds WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
-        number = cur.fetchone()
-        print(number, number[0])
-        if number[0] >= 1:
-            return jsonify({'message': 'You already have this book on hold.', 'status': 400}), 400
         try:
-            cur.execute('''INSERT INTO holds (user_id, book_id) VALUES (%s, %s)''', (user_id, book_id,))
-            mysql.connection.commit()
-            holds_id = cur.lastrowid
+            cur = mysql.connection.cursor()
+            cur.execute('''SELECT COALESCE(SUM(user_id), 0) FROM holds WHERE user_id = %s''', (user_id,))
+            number = cur.fetchone()
+            print(number, number[0])
+            if number[0] >= 50:
+                return jsonify({'message': 'You have reached the limit to the number of holds you can have at one time.', 'status': 400}), 400
+            cur.execute('''SELECT COALESCE(SUM(book_id), 0) FROM holds WHERE user_id = %s AND book_id = %s''', (user_id, book_id,))
+            number = cur.fetchone()
+            print(number, number[0])
+            if number[0] >= 1:
+                return jsonify({'message': 'You already have this book on hold.', 'status': 400}), 400
+            try:
+                cur.execute('''INSERT INTO holds (user_id, book_id) VALUES (%s, %s)''', (user_id, book_id,))
+                mysql.connection.commit()
+                holds_id = cur.lastrowid
+            except Exception as e:
+                mysql.connection.rollback()
+                return jsonify({'message': 'Unable to place a hold on this book, unepected database error.', 'status': 400}), 400
+            cur.execute('''SELECT holds.id, first_name, last_name, title, author_name FROM holds 
+                           JOIN users ON users.id = holds.user_id 
+                           JOIN books ON books.id = holds.book_id 
+                           WHERE holds.id = %s''', (holds_id,))
+            row = cur.fetchone()
+            return jsonify({'id': row[0], 'first_name': row[1], 'last_name': row[2], 'title': row[3], 'author': row[4]})
         except Exception as e:
-            mysql.connection.rollback()
-            return jsonify({'message': 'Unable to place a hold on this book, unepected database error.', 'status': 400}), 400
-        cur.execute('''SELECT holds.id, first_name, last_name, title, author_name FROM holds 
-                       JOIN users ON users.id = holds.user_id 
-                       JOIN books ON books.id = holds.book_id 
-                       WHERE holds.id = %s''', (holds_id,))
-        row = cur.fetchone()
-        return jsonify({'id': row[0], 'first_name': row[1], 'last_name': row[2], 'title': row[3], 'author': row[4]})
+            return jsonify({'message': 'Unexpected error occured while '
+                            'placing a hold on book id {} for user id {}.'.format(book_id, user_id), 'status': 400}), 400
+    else: 
+        return jsonify({'message': 'Invalid json format', 'status': 400}), 400
