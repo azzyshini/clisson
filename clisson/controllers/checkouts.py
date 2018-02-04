@@ -44,8 +44,9 @@ def checkout():
             row = cur.fetchone()
             return jsonify({'id': row[0], 'user_id': row[1], 'book_id': row[2]})
         except Exception as e:
-            return jsonify({'message': 'Unexpected error occured while '
-                            'checking out book id {} for user id {}.'.format(book_id, user_id), 'status': 400}), 400
+            raise e
+            #return jsonify({'message': 'Unexpected error occured while '
+            #                'checking out book id {} for user id {}.'.format(book_id, user_id), 'status': 400}), 400
     else:
         return jsonify({'message': 'Invalid json format.', 'status': 400}), 400
 
@@ -56,7 +57,7 @@ def checkin():
         checkout_id = info.get("id")
         try:
             cur = mysql.connection.cursor()
-            
+
             cur.execute('''DELETE FROM checkouts WHERE id = %s''', (checkout_id,))
             mysql.connection.commit()
         except Exception as e:
