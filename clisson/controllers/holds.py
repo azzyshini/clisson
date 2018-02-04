@@ -22,12 +22,12 @@ def hold():
         book_id = info.get("book_id")
         cur = mysql.connection.cursor()
         cur.execute('''SELECT COALESCE(SUM(user_id), 0) FROM holds WHERE user_id = %s''', (user_id,))
-        number =cur.fetchone()
-        if number >= 50:
+        number = cur.fetchone()
+        if number[0] >= 50:
             return jsonify({'message': 'You have reached the limit to the number of holds you can have at one time.', 'status': 400}), 400
         cur.execute('''SELECT COALESCE(SUM(book_id), 0) FROM holds WHERE user_id = %s''', (user_id,))
         number = cur.fetchone()
-        if number >= 1:
+        if number[0] >= 1:
             return jsonify({'message': 'You already have this book on hold.', 'status': 400}), 400
         cur.execute('''INSERT INTO holds (user_id, book_id) VALUES (%s, %s)''', (user_id, book_id,))
         cur.execute('''SELECT holds.id, first_name, last_name, title, author_name FROM holds 
