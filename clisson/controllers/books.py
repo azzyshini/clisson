@@ -37,3 +37,17 @@ def book_cover(book_id):
             return send_file(io.BytesIO(cover), attachment_filename='book_cover_{}'.format(book_id), mimetype=mimetype)
     message = "Book cover with id {} not found".format(book_id)
     return message, 404
+
+@mod_books.route('/books/<string:search>.json', methods=['GET'])
+def book_search(search):
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT title, author_name FROM books 
+                   WHERE title LIKE %s GROUP BY author_name''', (search))
+    rv = cur.fetchall()
+    results = []
+    if not row:
+        message = "Book with id {} not found".format(book_id)
+        return jsonify({'message': message, 'status': 404}), 404
+    for row in rv:
+        results.append({'id' : row[0], 'title': row[1], 'author_name': row[2]})
+    return jsonify(results)
