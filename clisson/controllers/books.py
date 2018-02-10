@@ -38,16 +38,17 @@ def book_cover(book_id):
     message = "Book cover with id {} not found".format(book_id)
     return message, 404
 
-@mod_books.route('/books/<string:search>.json', methods=['GET'])
-def book_search(search):
+@mod_books.route('/books/search.json', methods=['GET'])
+def book_search():
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT title, author_name FROM books 
-                   WHERE title LIKE %s GROUP BY author_name''', (search))
-    rv = cur.fetchall()
+    search = request.arg.get('search')
+    cur.execute("""SELECT title, author_name FROM books 
+                   WHERE title LIKE %s""", ("%"+search+"%"))
+    rows = cur.fetchall()
     results = []
-    if not row:
-        message = "Book with {} not found".format(search)
-        return jsonify({'message': message, 'status': 404}), 404
-    for row in rv:
+    if not rows:
+        message = "No search results found".format(search)
+        return jsonify({'message': message, 'status': 200}), 200
+    for row in rows:
         results.append({'id' : row[0], 'title': row[1], 'author_name': row[2]})
     return jsonify(results)
