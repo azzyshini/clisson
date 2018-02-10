@@ -46,7 +46,7 @@ def book_search(search):
     rv = cur.fetchall()
     results = []
     if not row:
-        message = "Book with id {} not found".format(book_id)
+        message = "Book with {} not found".format(search)
         return jsonify({'message': message, 'status': 404}), 404
     for row in rv:
         results.append({'id' : row[0], 'title': row[1], 'author_name': row[2]})
