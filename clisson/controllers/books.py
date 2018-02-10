@@ -41,7 +41,7 @@ def book_cover(book_id):
 @mod_books.route('/books/search.json', methods=['GET'])
 def book_search():
     cur = mysql.connection.cursor()
-    search = request.arg.get('search')
+    search = request.args.get('search')
     cur.execute("""SELECT title, author_name FROM books 
                    WHERE title LIKE %s""", ("%"+search+"%"))
     rows = cur.fetchall()
