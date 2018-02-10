@@ -44,7 +44,6 @@ def book_search():
     search = request.args.get('search')
     cur.execute("""SELECT title, author_name FROM books 
                    WHERE title LIKE concat('%%',%s,'%%')""", (search,))
-    print(cur.statement)
     rows = cur.fetchall()
     results = []
     if not rows:
