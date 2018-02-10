@@ -43,7 +43,7 @@ def book_search():
     cur = mysql.connection.cursor()
     search = request.args.get('search')
     cur.execute("""SELECT title, author_name FROM books 
-                   WHERE title LIKE %s""", ("%"+search+"%"))
+                   WHERE title LIKE %%%s%%""", (search))
     rows = cur.fetchall()
     results = []
     if not rows:
