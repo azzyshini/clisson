@@ -9,8 +9,11 @@ def book(book_id):
     cur = mysql.connection.cursor()
     cur.execute('''SELECT genre_type FROM book_genre JOIN genre 
                    ON genre.id = book_genre.genre_id  where book_genre.book_id = %s''', (book_id,))
-    row = cur.fetchall()
-    if not row:
+    rows = cur.fetchall()
+    if not rows:
         message = "Book with id {} not found".format(book_id)
         return jsonify({'message': message, 'status': 404}), 404
-    return jsonify({'genre': row[0]})
+    genre_list = []
+    for row in rows:
+        genre_list.append({'genre': row[0]})
+    return jsonify(boooks)
