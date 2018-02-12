@@ -16,4 +16,4 @@ def book(book_id):
     genre_list = []
     for row in rows:
         genre_list.append({'genre': row[0]})
-    return jsonify(boooks)
+    return jsonify(genre_list)
