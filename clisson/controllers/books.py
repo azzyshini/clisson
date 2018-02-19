@@ -23,12 +23,12 @@ def book(book_id):
     if not row:
         message = "Book with id {} not found".format(book_id)
         return jsonify({'message': message, 'status': 404}), 404
-    return jsonify({'title': row[0], 'author_name': row[1], 'availability': row[2]})
+    avail = int(row[2])
+    return jsonify({'title': row[0], 'author_name': row[1], 'availability': avail})
 
 @mod_books.route('/books/cover/<int:book_id>', methods=['GET'])
 def book_cover(book_id):
     cur = mysql.connection.cursor()
-    new_id = int(book_id)
     cur.execute('''SELECT book_cover, book_cover_mimetype FROM books WHERE id = %s''', (new_id,))
     row = cur.fetchone()
     if row:
