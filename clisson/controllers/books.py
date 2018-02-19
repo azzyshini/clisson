@@ -28,6 +28,7 @@ def book(book_id):
 @mod_books.route('/books/cover/<int:book_id>', methods=['GET'])
 def book_cover(book_id):
     cur = mysql.connection.cursor()
+    new_id = int(book_id)
     cur.execute('''SELECT book_cover, book_cover_mimetype FROM books WHERE id = %s''', (book_id,))
     row = cur.fetchone()
     if row:
