@@ -7,9 +7,10 @@ mod_holds = Blueprint('holds', __name__, url_prefix='/api/v1.0')
 @mod_holds.route('/holds/<int:id>.json', methods=['GET'])
 def holds(id): 
     cur = mysql.connection.cursor()
+    real_id = int(id)
     cur.execute('''SELECT title, author FROM holds 
                    JOIN users on users.ID = holds.user_id 
-                   JOIN books ON books.ID = holds.book_id WHERE holds.user_id = %d''', (id,))
+                   JOIN books ON books.ID = holds.book_id WHERE holds.user_id = %d''', (real_id,))
     rv = cur.fetchall()
     holds = []
     for row in rv:
