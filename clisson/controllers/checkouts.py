@@ -8,7 +8,7 @@ mod_checkouts = Blueprint('checkouts', __name__, url_prefix='/api/v1.0')
 def checkouts(id): 
     cur = mysql.connection.cursor()
     real_id = int(id)
-    cur.execute('''SELECT title, author, due_date FROM checkouts 
+    cur.execute('''SELECT title, author_name, due_date FROM checkouts 
                    JOIN users on users.ID = checkouts.user_id 
                    JOIN books on books.ID = checkouts.book_id Where checkouts.user_id = {}'''.format(real_id))
     rv = cur.fetchall()

@@ -8,7 +8,7 @@ mod_holds = Blueprint('holds', __name__, url_prefix='/api/v1.0')
 def holds(id): 
     cur = mysql.connection.cursor()
     real_id = int(id)
-    cur.execute('''SELECT title, author FROM holds 
+    cur.execute('''SELECT title, author_name FROM holds 
                    JOIN users on users.ID = holds.user_id 
                    JOIN books ON books.ID = holds.book_id WHERE holds.user_id = {}'''.format(real_id))
     rv = cur.fetchall()
