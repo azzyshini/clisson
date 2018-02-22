@@ -26,14 +26,14 @@ def checkout():
         try:
             cur = mysql.connection.cursor() 
             cur.execute('''SELECT number_of_copies-COALESCE(SUM(book_id), 0) FROM books INNER 
-                           JOIN checkouts ON books.id = checkouts.book_id WHERE books.id = %s''', (book_id,))
+                           JOIN checkouts ON books.id = checkouts.book_id WHERE books.id = %d''', (book_id,))
             availability = cur.fetchone()
             if availability[0] <= 0:
                 return jsonify({'message': 'Cannot checkout this book at this time.', 'status': 400}), 400
 
             try:
                 cur.execute('''INSERT INTO checkouts (user_id, book_id, checkout_date, due_date) 
-                               VALUES (%s, %s, NOW(), NOW()+INTERVAL 2 week)''', (user_id, book_id,))
+                               VALUES (%d, %d, NOW(), NOW()+INTERVAL 2 week)''', (user_id, book_id,))
                 checkout_id = cur.lastrowid
                 mysql.connection.commit()
             except Exception as e:
