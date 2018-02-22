@@ -10,7 +10,7 @@ def holds(id):
     real_id = int(id)
     cur.execute('''SELECT title, author FROM holds 
                    JOIN users on users.ID = holds.user_id 
-                   JOIN books ON books.ID = holds.book_id WHERE holds.user_id = %d''', (real_id,))
+                   JOIN books ON books.ID = holds.book_id WHERE holds.user_id = {}'''.format(real_id))
     rv = cur.fetchall()
     holds = []
     for row in rv:
