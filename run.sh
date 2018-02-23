@@ -1,9 +1,5 @@
 #!/bin/bash
 
-if [[ ! `pidof -s yourapp` ]]; then
-    invoke-rc.d yourapp start
-fi
-
 pushd `dirname $0` > /dev/null
 SCRIPT_PATH=`pwd`
 popd > /dev/null
