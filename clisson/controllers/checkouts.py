@@ -30,22 +30,27 @@ def checkout():
             availability = cur.fetchone()
             if availability[0] <= 0:
                 return jsonify({'message': 'Cannot checkout this book at this time.', 'status': 400}), 400
-
+            cur.execute('''SELECT number_of_copies-COALESCE(SUM(book_id), 0) FROM books INNER 
+                           JOIN holds ON books.id = holds.book_id WHERE books.id = {}'''.format(book_id))
+            holds = cur.fetchone()
+            if hold[0] <= 0: 
+                cur.execute('''DELETE FROM holds WHERE user_id = {} AND book_id = {}''', .format(user_id, book_id))
             try:
                 cur.execute('''INSERT INTO checkouts (user_id, book_id, checkout_date, due_date) 
                                VALUES ({}, {}, NOW(), NOW()+INTERVAL 2 week)'''.format(user_id, book_id))
                 checkout_id = cur.lastrowid
                 mysql.connection.commit()
-            except Exception as e:
+            except Exception as e: 
+                raise e
                 mysql.connection.rollback()
                 return jsonify({'message': 'Cannot checkout this book at this time, '
                                            'unexpected database error.', 'status': 400}), 400
-
             cur.execute('''SELECT id, user_id, book_id FROM checkouts 
                            WHERE id = {}'''.format(checkout_id))
-            row = cur.fetchone()
+            row = cur.fetchone() 
             return jsonify({'id': row[0], 'user_id': row[1], 'book_id': row[2]})
         except Exception as e:
+            raise e
             return jsonify({'message': 'Unexpected error occured while '
                             'checking out book id {} for user id {}.'.format(book_id, user_id), 'status': 400}), 400
     else:
@@ -58,7 +63,6 @@ def checkin():
         checkout_id = info.get("checkout_id")
         try:
             cur = mysql.connection.cursor()
-
             cur.execute('''DELETE FROM checkouts WHERE id = %s''', (checkout_id,))
             mysql.connection.commit()
         except Exception as e:

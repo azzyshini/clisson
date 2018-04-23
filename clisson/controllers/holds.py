@@ -44,6 +44,7 @@ def hold():
                 mysql.connection.commit()
                 holds_id = cur.lastrowid
             except Exception as e:
+                raise e
                 mysql.connection.rollback()
                 return jsonify({'message': 'Unable to place a hold on this book, unepected database error.', 'status': 400}), 400
 
@@ -54,6 +55,7 @@ def hold():
             row = cur.fetchone()
             return jsonify({'id': row[0], 'first_name': row[1], 'last_name': row[2], 'title': row[3], 'author': row[4]})
         except Exception as e:
+            raise e
             return jsonify({'message': 'Unexpected error occured while '
                             'placing a hold on book id {} for user id {}.'.format(book_id, user_id), 'status': 400}), 400
 
