@@ -32,9 +32,6 @@ def checkout():
                 return jsonify({'message': 'Cannot checkout this book at this time.', 'status': 400}), 400
             cur.execute('''SELECT number_of_copies-COALESCE(SUM(book_id), 0) FROM books INNER 
                            JOIN holds ON books.id = holds.book_id WHERE books.id = {}'''.format(book_id))
-            holds = cur.fetchone()
-            if hold[0] <= 0: 
-                cur.execute('''DELETE FROM holds WHERE user_id = {} AND book_id = {}'''.format(user_id, book_id))
             try:
                 cur.execute('''INSERT INTO checkouts (user_id, book_id, checkout_date, due_date) 
                                VALUES ({}, {}, NOW(), NOW()+INTERVAL 2 week)'''.format(user_id, book_id))
