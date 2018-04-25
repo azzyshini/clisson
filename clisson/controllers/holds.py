@@ -58,6 +58,22 @@ def hold():
             raise e
             return jsonify({'message': 'Unexpected error occured while '
                             'placing a hold on book id {} for user id {}.'.format(book_id, user_id), 'status': 400}), 400
-
     else: 
-        return jsonify({'message': 'Invalid json format', 'status': 400}), 400
+        return jsonify({'message': 'Invalid json format', 'status': 400}), 400 
+
+@mod_holds.route('/unhold.json', methods=['POST'])
+def checkin():
+    info = request.get_json(force=True, silent=True)
+    if info:
+        hold_id = info.get("hold_id")
+        try:
+            cur = mysql.connection.cursor()
+            cur.execute('''DELETE FROM holds WHERE id = %s''', (hold_id,))
+            mysql.connection.commit()
+        except Exception as e:
+            mysql.connection.rollback()
+            return jsonify({'message': 'Cannot unhold this book at this time, '
+                                       'unexpected database error.', 'status': 400}), 400
+        return jsonify({})
+    else:
+        return jsonify({'message': 'Invalid json format.', 'status': 400}), 400
