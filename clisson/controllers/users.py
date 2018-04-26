@@ -19,9 +19,9 @@ def user_by_name(username):
 @requires_auth
 def user_by_id(user_id): 
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT id, email, first_name, last_name FROM users WHERE username = %s''', (user_id,))
+    cur.execute('''SELECT id, email, first_name, last_name, user_type_id FROM users WHERE username = %s''', (user_id,))
     row = cur.fetchone()
     if not row:
         message = "User with id {} not found".format(user_id)
         return jsonify({'message': message, 'status': 404}), 404
-    return jsonify({'id': row[0], 'email': row[1], 'first_name': row[2], 'last_name': row[3]})
+    return jsonify({'id': row[0], 'email': row[1], 'first_name': row[2], 'last_name': row[3]}, 'user_type_id': row[4])
