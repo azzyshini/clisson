@@ -8,13 +8,13 @@ mod_holds = Blueprint('holds', __name__, url_prefix='/api/v1.0')
 def holds(id): 
     cur = mysql.connection.cursor()
     real_id = int(id)
-    cur.execute('''SELECT title, author_name FROM holds 
+    cur.execute('''SELECT holds.id, title, author_name FROM holds 
                    JOIN users on users.ID = holds.user_id 
                    JOIN books ON books.ID = holds.book_id WHERE holds.user_id = {}'''.format(real_id))
     rv = cur.fetchall()
     holds = []
     for row in rv:
-        holds.append({'title' : row[0], 'author': row[1]})
+        holds.append({'id' : row[0], 'title' : row[1], 'author': row[2]})
     return jsonify(holds)
 
 @mod_holds.route('/hold.json', methods=['POST'])
