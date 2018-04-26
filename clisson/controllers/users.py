@@ -24,4 +24,4 @@ def user_by_id(user_id):
     if not row:
         message = "User with id {} not found".format(user_id)
         return jsonify({'message': message, 'status': 404}), 404
-    return jsonify({'id': row[0], 'email': row[1], 'first_name': row[2], 'last_name': row[3]}, 'user_type_id': row[4])
+    return jsonify({'id': row[0], 'email': row[1], 'first_name': row[2], 'last_name': row[3], 'user_type_id': row[4]})
