@@ -17,7 +17,7 @@ def books():
 @mod_books.route('/books/<int:book_id>.json', methods=['GET'])
 def book(book_id):
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT title, author_name, number_of_copies-COALESCE(SUM(book_id), 0) AS availability FROM books 
+    cur.execute('''SELECT title, author_name, number_of_copies-count(book_id) AS availability FROM books 
                    JOIN checkouts ON books.id = checkouts.book_id  where books.id = %s''', (book_id,))
     row = cur.fetchone()
     if not row:
