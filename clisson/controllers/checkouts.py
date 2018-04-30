@@ -25,7 +25,7 @@ def checkout():
         book_id = int(info.get("book_id"))
         try:
             cur = mysql.connection.cursor() 
-            cur.execute('''SELECT number_of_copies-COALESCE(SUM(book_id), 0) FROM books INNER 
+            cur.execute('''SELECT number_of_copies-count(book_id) FROM books INNER 
                            JOIN checkouts ON books.id = checkouts.book_id WHERE books.id = {}'''.format(book_id))
             availability = cur.fetchone()
             if availability[0] <= 0:
