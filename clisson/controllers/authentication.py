@@ -13,7 +13,6 @@ def auth():
             username = creds.get("username")
             password = creds.get("password")
             cur = mysql.connection.cursor()
-            print(username + " and " + password)
             cur.execute('''SELECT id, email, first_name, last_name, user_type_id FROM users Where username = %s AND password = %s''', (username, password,))
             row = cur.fetchone()
             if row: 
