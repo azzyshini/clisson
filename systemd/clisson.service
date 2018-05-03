@@ -1,0 +1,13 @@
+[Unit] 
+Description=Clisson Flask server
+After=network.target
+
+[Service]
+User=azrael
+ExecStart=/home/azrael/Projects/clisson-py3-env/bin/python /home/azrael/Projects/clisson/run.py --app clisson --port 5000
+WorkingDirectory=/home/azrael/Projects/clisson
+Restart=always
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
