@@ -21,4 +21,4 @@ def auth():
                 error = 'Invalid username or password. Please try again.'
         else:
             error = 'Invalid username or password. Please try again.'
-    return jsonify({'message': error, 'status': 401}), 401
+    return jsonify({'message': error, 'status': 401, 'authenticated': False}), 401
