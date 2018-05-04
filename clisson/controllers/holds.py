@@ -23,7 +23,7 @@ def hold():
     if info:
         user_id = info.get("user_id")
         book_id = info.get("book_id")
-        print("{} and {}".format(user_id, book_id))
+        print(str(user_id) + " and " + str(book_id))
         try:
             cur = mysql.connection.cursor()
             cur.execute('''SELECT COALESCE(SUM(user_id), 0) FROM holds WHERE user_id = %s''', (user_id,))
