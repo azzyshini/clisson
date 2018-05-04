@@ -23,10 +23,10 @@ def hold():
     if info:
         user_id = info.get("user_id")
         book_id = info.get("book_id")
-
+        print(user_id + " and " + book_id)
         try:
             cur = mysql.connection.cursor()
-            cur.execute('''SELECT count(user_id) FROM holds WHERE user_id = %s''', (user_id,))
+            cur.execute('''SELECT COALESCE(SUM(user_id), 0) FROM holds WHERE user_id = %s''', (user_id,))
             number = cur.fetchone()
 
             if number[0] >= 50:
