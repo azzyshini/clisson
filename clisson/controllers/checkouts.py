@@ -22,7 +22,8 @@ def checkout():
     info = request.get_json(force=True, silent=True)
     if info:
         user_id = int(info.get("user_id"))
-        book_id = int(info.get("book_id"))
+        book_id = int(info.get("book_id")) 
+        print(user_id + " and " + book_id)
         try:
             cur = mysql.connection.cursor() 
             cur.execute('''SELECT number_of_copies-count(book_id) FROM books INNER 
