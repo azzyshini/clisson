@@ -5,7 +5,6 @@ from clisson.controllers.common import requires_auth
 mod_users = Blueprint('users', __name__, url_prefix='/api/v1.0')
 
 @mod_users.route('/users/<string:username>.json', methods=['GET'])
-@requires_auth
 def user_by_name(username): 
     cur = mysql.connection.cursor()
     cur.execute('''SELECT id, email, first_name, last_name, user_type_id FROM users WHERE username = %s''', (username,))
@@ -16,7 +15,6 @@ def user_by_name(username):
     return jsonify({'id': row[0], 'email': row[1], 'first_name': row[2], 'last_name': row[3], 'user_type_id': row[4]})
 
 @mod_users.route('/users/<string:user_id>.json', methods=['GET'])
-@requires_auth
 def user_by_id(user_id): 
     cur = mysql.connection.cursor()
     cur.execute('''SELECT id, email, first_name, last_name, user_type_id FROM users WHERE username = %s''', (user_id,))
