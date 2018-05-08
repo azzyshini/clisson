@@ -17,7 +17,7 @@ def user_by_name(username):
 @mod_users.route('/usersbyid/<int:user_id>.json', methods=['GET'])
 def user_by_id(user_id): 
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT id, email, first_name, last_name, user_type_id FROM users WHERE username = %s''', (user_id,))
+    cur.execute('''SELECT id, email, first_name, last_name, user_type_id FROM users WHERE id = %s''', (user_id,))
     row = cur.fetchone()
     if not row:
         message = "User with id {} not found".format(user_id)
