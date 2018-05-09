@@ -59,7 +59,7 @@ def checkin():
     try:
         cur = mysql.connection.cursor()
         cur.execute('''DELETE FROM checkouts WHERE id = {}'''.format(checkout_id))
-         mysql.connection.commit()
+        mysql.connection.commit()
     except Exception as e:
         raise e
         mysql.connection.rollback()
