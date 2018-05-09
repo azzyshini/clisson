@@ -64,6 +64,7 @@ def checkin():
             cur.execute('''DELETE FROM checkouts WHERE id = %s''', (checkout_id,))
             mysql.connection.commit()
         except Exception as e:
+            raise e
             mysql.connection.rollback()
             return jsonify({'message': 'Cannot checkin this book at this time, '
                                        'unexpected database error.', 'status': 400}), 400
